@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Product from './Product';
-import axios from "axios";
+//import axios from "axios";
 const config = require('../config.json');
 
 export default class Products extends Component {
