@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
             id: '12345',
             productname: 'Solar Panels'
         }
-    }
+    };
 
     try {
         const data = await documentClient.put(params).promise();

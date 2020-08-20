@@ -12,7 +12,7 @@ exports.handler = async (event, context) => {
         Key: {
             id: '12345'
         }
-    }
+    };
 
     try {
         const data = await documentClient.delete(params).promise();
