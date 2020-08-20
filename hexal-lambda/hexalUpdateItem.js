@@ -14,7 +14,7 @@ exports.handler = async (event, context) => {
         },
         UpdateExpression: "set productname = :n",
         ExpressAttributeValues: {
-            ":n": "Water Pumps"
+            ":n": "Water pumps"
         },
         ReturnValues: "UPDATED_NEW"
     };
