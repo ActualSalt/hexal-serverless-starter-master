@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
 
     try {
         const data = await documentClient.scan(params).promise();
-        responseBody = JSON.stringify(data);
+        responseBody = JSON.stringify(data.Items);
         statusCode = 200;
     }catch (err){
         responseBody = `Unable to get products: ${err}`;
