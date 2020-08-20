@@ -12,7 +12,6 @@ exports.handler = async (event, context) => {
         Key: {
             id: '12345'
         },
-        //Unique to updates 
         UpdateExpression: "set productname = :n",
         ExpressAttributeValues: {
             ":n": "Water Pumps"
