@@ -8,18 +8,15 @@ exports.handler = async (event, context) => {
     let statusCode = 0;
 
     const params = {
-        TableName: "Products",
-        Key: {
-            id: '12345'
-        }
+        TableName: "Products"
     };
 
     try {
-        const data = await documentClient.delete(params).promise();
+        const data = await documentClient.scan(params).promise();
         responseBody = JSON.stringify(data);
-        statusCode = 204;
+        statusCode = 200;
     }catch (err){
-        responseBody = `Unable to delete product: ${err}`;
+        responseBody = `Unable to get products: ${err}`;
         statusCode = 403;
     }
 
