@@ -17,7 +17,7 @@ exports.handler = async (event, context) => {
         ExpressAttributeValues: {
             ":n": "Water Pumps"
         },
-        ReturnValues: "PRODUCT_UPDATED"
+        ReturnValues: "UPDATED_NEW"
     };
 
     try {
