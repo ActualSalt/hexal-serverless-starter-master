@@ -1,0 +1,7 @@
+put (create) 
+
+delete 
+
+getAll
+
+update 
