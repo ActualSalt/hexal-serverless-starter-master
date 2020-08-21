@@ -7,20 +7,19 @@ exports.handler = async (event, context) => {
     let responseBody = "";
     let statusCode = 0;
 
-    const {id, productname} = JSON.parse(event.body);
+    const { id, productname } = JSON.parse(event.body);
 
     const params = {
-        TableName: "Products",
-        Key: {
-            id: id
-        },
-        UpdateExpression: "set productname = :n",
-        ExpressAttributeValues: {
-            ":n": productname
-        },
-        ReturnValues: "UPDATED_NEW"
+      TableName: "Products",
+      Key: {
+        id: id
+      },
+      UpdateExpression: "set productname = :n",
+      ExpressionAttributeValues: {
+        ":n": productname
+      },
+      ReturnValues: "UPDATED_NEW"
     };
-
     try {
         const data = await documentClient.update(params).promise();
         responseBody = JSON.stringify(data);
