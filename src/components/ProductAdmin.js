@@ -20,7 +20,7 @@ export default class ProductAdmin extends Component {
       const params = {
         "id": id,
         "productname": this.state.newproduct.productname
-      }
+      };
       await axios.post(`${config.api.invokeUrl}/products/{id}`, params);
       this.setState({ products: [...this.state.products, this.state.newproduct] });
       this.setState({ newproduct: { "productname": "", "id": "" } });
@@ -30,26 +30,34 @@ export default class ProductAdmin extends Component {
 
   }
 
-  handleUpdateProduct = (id, name) => {
+  handleUpdateProduct = async (id, name) => {
     // add call to AWS API Gateway update product endpoint here
-    const productToUpdate = [...this.state.products].find(product => product.id === id);
-    const updatedProducts = [...this.state.products].filter(product => product.id !== id);
-    productToUpdate.productname = name;
-    updatedProducts.push(productToUpdate);
-    this.setState({ products: updatedProducts });
+    try{
+      const params = {
+        "id": id,
+        "productname": name
+      };
+      await axios.patch(`${config.api.invokeUrl}/products/{id}`, params);
+      const productToUpdate = [...this.state.products].find(product => product.id === id);
+      const updatedProducts = [...this.state.products].filter(product => product.id !== id);
+      productToUpdate.productname = name;
+      updatedProducts.push(productToUpdate);
+      this.setState({ products: updatedProducts });
+    }catch(err){
+      console.log(`Error updating product: ${err}`);
+    }   
   }
 
   handleDeleteProduct = async (id, event) => {
     event.preventDefault();
     // add call to AWS API Gateway delete product endpoint here
     try {
-      await axios.delete(`${config.api.invokeUrl}/products/{id}`);
+      await axios.delete(`${config.api.invokeUrl}/products/${id}`);
       const updatedProducts = [...this.state.products].filter(product => product.id !== id);
-      this.setState({ products: updatedProducts });
-    } catch (err) {
+      this.setState({products: updatedProducts});
+    }catch (err) {
       console.log(`Unable to delete product: ${err}`);
     }
-
   }
 
   fetchProducts = async () => {
