@@ -7,7 +7,7 @@ exports.handler = async (event, context) => {
     let responseBody = "";
     let statusCode = 0;
 
-    const {id} = event.pathParameters; 
+    const { id } = event.pathParameters;
 
     const params = {
         TableName: "Products",
@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
         const data = await documentClient.delete(params).promise();
         responseBody = JSON.stringify(data);
         statusCode = 204;
-    }catch (err){
+    } catch (err) {
         responseBody = `Unable to delete product: ${err}`;
         statusCode = 403;
     }
