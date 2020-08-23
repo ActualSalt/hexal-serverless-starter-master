@@ -13,11 +13,21 @@ export default class ProductAdmin extends Component {
     products: []
   }
 
-  handleAddProduct = (id, event) => {
+  handleAddProduct = async (id, event) => {
     event.preventDefault();
     // add call to AWS API Gateway add product endpoint here
-    this.setState({ products: [...this.state.products, this.state.newproduct] })
-    this.setState({ newproduct: { "productname": "", "id": "" } });
+    try {
+      const params = {
+        "id": id,
+        "productname": this.state.newproduct.productname
+      }
+      await axios.post(`${config.api.invokeUrl}/products/{id}`, params);
+      this.setState({ products: [...this.state.products, this.state.newproduct] });
+      this.setState({ newproduct: { "productname": "", "id": "" } });
+    } catch (err) {
+      console.log(`An error has occurred: ${err}`);
+    }
+
   }
 
   handleUpdateProduct = (id, name) => {
@@ -29,11 +39,17 @@ export default class ProductAdmin extends Component {
     this.setState({ products: updatedProducts });
   }
 
-  handleDeleteProduct = (id, event) => {
+  handleDeleteProduct = async (id, event) => {
     event.preventDefault();
     // add call to AWS API Gateway delete product endpoint here
-    const updatedProducts = [...this.state.products].filter(product => product.id !== id);
-    this.setState({ products: updatedProducts });
+    try {
+      await axios.delete(`${config.api.invokeUrl}/products/{id}`);
+      const updatedProducts = [...this.state.products].filter(product => product.id !== id);
+      this.setState({ products: updatedProducts });
+    } catch (err) {
+      console.log(`Unable to delete product: ${err}`);
+    }
+
   }
 
   fetchProducts = async () => {
