@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
         const data = await documentClient.put(params).promise();
         responseBody = JSON.stringify(data);
         statusCode = 201;
-    }catch (err){
+    } catch (err) {
         responseBody = `Unable to put product: ${err}`;
         statusCode = 403;
     }
