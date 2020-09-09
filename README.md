@@ -1,6 +1,6 @@
 ## Hexal Energy app
 
-This is a starter ReactJS UI for my 'Create a Serverless App' tutorial series.
+ReactJS UI with a serverless app.
 
 ## Application Info
 
